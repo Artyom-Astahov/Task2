@@ -14,8 +14,7 @@ public class UserServlet extends HttpServlet {
     private final UserService userService = new UserService();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var user = userService.getUser(1L);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {var user = userService.getUser(1L);
         resp.setContentType("text/html");
         var writer = resp.getWriter();
         writer.write("<html lang=\"ru\">\n" +
