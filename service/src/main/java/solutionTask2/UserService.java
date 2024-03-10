@@ -5,8 +5,24 @@ import java.util.Optional;
 public class UserService {
 
     private final UserDao userDao = new UserDao();
-    public Optional<UserDto> getUser(Long id){
+    public User user = null;
 
-        return userDao.findById(id).map(it -> new UserDto(it.getName()));
+    public Object logIn(String login, String password) throws UserExistsException {
+        try {
+            user = userDao.logIn(login, password);
+            return user;
+        } catch (UserNotExistsException e) {
+            throw new UserExistsException(e.getMessage());
+        }
     }
+
+    public String createUser(String name, String age, String email, String login, String password) throws UserExistsException {
+        try {
+            userDao.createUser(name, age, email, login, password);
+            return "Пользователь успешно создан";
+        } catch (UserExistsException e) {
+            throw new UserExistsException(e.getMessage());
+        }
+    }
+
 }
